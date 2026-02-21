@@ -1,0 +1,283 @@
+{
+  "info": {
+    "_postman_id": "9e6be84d-3c0d-4b88-8d85-6e0f4a0b4a7f",
+    "name": "Adhivasindo API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@test.com\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const response = pm.response.json();",
+              "const token = response.token || (response.data && response.data.token);",
+              "if (token) {",
+              "  pm.collectionVariables.set('token', token);",
+              "  pm.test('Token disimpan ke collection variable', function () {",
+              "    pm.expect(pm.collectionVariables.get('token')).to.eql(token);",
+              "  });",
+              "} else {",
+              "  pm.test('Token tidak ditemukan di response', function () {",
+              "    pm.expect.fail('Response tidak memiliki field token');",
+              "  });",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users - List",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/users",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Users - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/users",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Users - Show",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/users/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Users - Update",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe Updated\",\n  \"email\": \"john.updated@example.com\",\n  \"password\": \"1234567\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/users/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Users - Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/users/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search - Name",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/search/name?value=Turner%20Mia",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "search",
+            "name"
+          ],
+          "query": [
+            {
+              "key": "value",
+              "value": "Turner Mia"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search - NIM",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/search/nim?value=9352078461",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "search",
+            "nim"
+          ],
+          "query": [
+            {
+              "key": "value",
+              "value": "9352078461"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search - YMD",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/search/ymd?value=20230405",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "search",
+            "ymd"
+          ],
+          "query": [
+            {
+              "key": "value",
+              "value": "20230405"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
