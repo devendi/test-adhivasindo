@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class ExternalDataService
 {
-    private const URL = 'https://bit.ly/48ejMhW';
+    private const URL = 'https://ogienurdiana.com/career/ecc694ce4e7f6e45a5a7912cde9fe131';
 
     public function fetch(): array
     {
